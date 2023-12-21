@@ -6,26 +6,26 @@ These functions are evaluated using several pipelining stages, each stage suppor
 #### 1) tanh(x) 
 > tanh(x) uses exponential, addition, subtraction, and division operations. In the first expression, we will have to calculate $e^x$ and  $(e^-)^x$ separately, but when we simplify it to the second expression we will just use the exponential stage once $e^(2x)$. In this case, I need one more stage to factor x to 2x.
 > 
-![](Git_Images/tanh(x).png)
+![](Images/tanh(x).png)
 
 #### 2) sigmoid(x)
 > sigmoid (x) uses exponential, addition, and division operations. It also uses a stage to factor x to -x. 
 >
-![](Git_Images/sigmoid(x).png)
+![](Images/sigmoid(x).png)
 
 #### 3) leaky_ReLu(x) 
 > LReLu(x) uses a stage to compare value of x with 0. Here α is the learning rate, and after referring to sources from the internet we took its value as 1.67.
 >
-![](Git_Images/LReLu.png)
+![](Images/LReLu.png)
 #### 4) SeLu(x)
 > Just like LReLu(x), SeLu(x) also uses a stage to compare value of x with 0. Here λ is the scale, and its value is taken as 1.05.
 > 
-![](Git_Images/SeLu.png)
+![](Images/SeLu.png)
 ### Pipeline stages  
 >  
 After simplifying the expressions of the activation functions such that we use a minimum number of pipeline stages, we got **6** stages. The stages are Factor, Exponential, Addition, Subtraction, Division and Comparison. We made the order of the stages such that we can reuse the previous stages' output as input for the upcoming stages. For example, in the tanh(x) function value of $e^2x$ which is evaluated in the second stage is given as inputs to the addition and subtraction stages.
 >   
-![](Git_Images/stages.png)
+![](Images/stages.png)
 >
 As shown in the above table, some functions don't use several stages. The data from the previous stage just passes through such stages without any change. For example, in the *LReLu* function the input just passes through the first five stages and only the comparison stage is used.
 >
@@ -33,7 +33,7 @@ As shown in the above table, some functions don't use several stages. The data f
 >
 The figure shown below is the overall pipelined module.
 >
-![Pipline Stages ](Git_Images/pipeline.png)
+![Pipline Stages ](Images/pipeline.png)
 >
 *x* represents the given input. Here OP represents the function (which is also given as an input along with x), which enables the pipeline stages based on the function used. 
    * 00: tanh(x)
